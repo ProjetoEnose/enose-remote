@@ -5,8 +5,9 @@
 @endsection
 
 @section('content')
-    <h1>dashboard</h1>
+    <div id="chart"></div>
 @endsection
 
 @section('specific-scripts')
+    @vite('resources/js/dashboard-chart.js')
 @endsection

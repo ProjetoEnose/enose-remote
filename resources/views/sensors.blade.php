@@ -26,5 +26,4 @@
 
 @section('specific-scripts')
     @vite('resources/js/sensors-chart.js')
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 @endsection

@@ -1,162 +1,164 @@
+import ApexCharts from "apexcharts";
+
 // Definindo as opções dos gráficos
 var optionsMQ3 = {
-  series: [
-    {
-      data: [90, 56, 34, 44, 20],
-    },
-  ],
-  chart: {
-    type: "bar",
-    height: 350,
-    width: "100%",
-    toolbar: {
-      show: true,
-      tools: {
-        download: false, // Desativa o botão de download
-      },
-    },
-  },
-  plotOptions: {
-    bar: {
-      borderRadius: 4,
-      borderRadiusApplication: "end",
-      horizontal: true,
-    },
-  },
-  title: {
-    text: "PERCENTUAL DE SENSIBILIDADE AOS GASES",
-    align: "center",
-    floating: true,
-    style: {
-      color: "#fafafa",
-      fontSize: "12px",
-    },
-  },
-  tooltip: {
-    theme: "dark",
-    x: {
-      show: false,
-    },
-    y: {
-      title: {
-        formatter: function () {
-          return "";
+    series: [
+        {
+            data: [90, 56, 34, 44, 20],
         },
-      },
+    ],
+    chart: {
+        type: "bar",
+        height: 350,
+        width: "100%",
+        toolbar: {
+            show: true,
+            tools: {
+                download: false, // Desativa o botão de download
+            },
+        },
     },
-  },
-  xaxis: {
-    categories: ["GLP", "Álcool", "Benzina", "Metano", "Hexano"],
-    labels: {
-      style: {
-        fontSize: "12px",
-        colors: "#ffffff", // Cor dos rótulos do eixo X
-      },
+    plotOptions: {
+        bar: {
+            borderRadius: 4,
+            borderRadiusApplication: "end",
+            horizontal: true,
+        },
     },
-  },
-  yaxis: {
-    labels: {
-      style: {
-        fontSize: "12px",
-        colors: "#ffffff", // Cor dos rótulos do eixo Y
-      },
+    title: {
+        text: "PERCENTUAL DE SENSIBILIDADE AOS GASES",
+        align: "center",
+        floating: true,
+        style: {
+            color: "#fafafa",
+            fontSize: "12px",
+        },
     },
-  },
-  colors: ["#33b2df", "#546E7A", "#d4526e", "#13d8aa"], // Cores individuais para o gráfico MQ3
-  dataLabels: {
-    enabled: true,
-    style: {
-      colors: ["#fff"],
-      fontSize: "12px",
+    tooltip: {
+        theme: "dark",
+        x: {
+            show: false,
+        },
+        y: {
+            title: {
+                formatter: function () {
+                    return "";
+                },
+            },
+        },
     },
-    formatter: function (val) {
-      return val + "%"; // Adiciona o símbolo de porcentagem
+    xaxis: {
+        categories: ["GLP", "Álcool", "Benzina", "Metano", "Hexano"],
+        labels: {
+            style: {
+                fontSize: "12px",
+                colors: "#ffffff", // Cor dos rótulos do eixo X
+            },
+        },
     },
-  },
-  grid: {
-    borderColor: "#272f38",
-  },
+    yaxis: {
+        labels: {
+            style: {
+                fontSize: "12px",
+                colors: "#ffffff", // Cor dos rótulos do eixo Y
+            },
+        },
+    },
+    colors: ["#33b2df", "#546E7A", "#d4526e", "#13d8aa"], // Cores individuais para o gráfico MQ3
+    dataLabels: {
+        enabled: true,
+        style: {
+            colors: ["#fff"],
+            fontSize: "12px",
+        },
+        formatter: function (val) {
+            return val + "%"; // Adiciona o símbolo de porcentagem
+        },
+    },
+    grid: {
+        borderColor: "#272f38",
+    },
 };
 
 var optionsMQ5 = {
-  series: [
-    {
-      data: [78, 88, 65, 73],
-    },
-  ],
-  chart: {
-    type: "bar",
-    height: 350,
-    toolbar: {
-      show: true,
-      tools: {
-        download: false, // Desativa o botão de download
-      },
-    },
-  },
-  plotOptions: {
-    bar: {
-      borderRadius: 4,
-      borderRadiusApplication: "end",
-      horizontal: true,
-    },
-  },
-  title: {
-    text: "PERCENTUAL DE SENSIBILIDADE AOS GASES",
-    align: "center",
-    floating: true,
-    style: {
-      color: "#fafafa",
-      fontSize: "12px",
-    },
-  },
-  tooltip: {
-    theme: "dark",
-    x: {
-      show: false,
-    },
-    y: {
-      title: {
-        formatter: function () {
-          return "";
+    series: [
+        {
+            data: [78, 88, 65, 73],
         },
-      },
+    ],
+    chart: {
+        type: "bar",
+        height: 350,
+        toolbar: {
+            show: true,
+            tools: {
+                download: false, // Desativa o botão de download
+            },
+        },
     },
-  },
-  xaxis: {
-    categories: ["C02", "H", "HCL4", "H2O"],
-    labels: {
-      style: {
-        fontSize: "12px",
-        colors: "#ffffff", // Cor dos rótulos do eixo X
-      },
+    plotOptions: {
+        bar: {
+            borderRadius: 4,
+            borderRadiusApplication: "end",
+            horizontal: true,
+        },
     },
-    style: {
-      borderColor: "#272f38",
+    title: {
+        text: "PERCENTUAL DE SENSIBILIDADE AOS GASES",
+        align: "center",
+        floating: true,
+        style: {
+            color: "#fafafa",
+            fontSize: "12px",
+        },
     },
-  },
-  yaxis: {
-    labels: {
-      style: {
-        fontSize: "12px",
-        colors: "#ffffff", // Cor dos rótulos do eixo Y
-      },
+    tooltip: {
+        theme: "dark",
+        x: {
+            show: false,
+        },
+        y: {
+            title: {
+                formatter: function () {
+                    return "";
+                },
+            },
+        },
     },
-  },
-  colors: ["#ff4560", "#775dd0", "#00e396", "#feb019"], // Cores individuais para o gráfico MQ5
-  dataLabels: {
-    enabled: true,
-    style: {
-      colors: ["#fff"],
-      fontSize: "12px",
+    xaxis: {
+        categories: ["C02", "H", "HCL4", "H2O"],
+        labels: {
+            style: {
+                fontSize: "12px",
+                colors: "#ffffff", // Cor dos rótulos do eixo X
+            },
+        },
+        style: {
+            borderColor: "#272f38",
+        },
     },
-    formatter: function (val) {
-      return val + "%"; // Adiciona o símbolo de porcentagem
+    yaxis: {
+        labels: {
+            style: {
+                fontSize: "12px",
+                colors: "#ffffff", // Cor dos rótulos do eixo Y
+            },
+        },
     },
-  },
-  grid: {
-    borderColor: "#272f38",
-  },
+    colors: ["#ff4560", "#775dd0", "#00e396", "#feb019"], // Cores individuais para o gráfico MQ5
+    dataLabels: {
+        enabled: true,
+        style: {
+            colors: ["#fff"],
+            fontSize: "12px",
+        },
+        formatter: function (val) {
+            return val + "%"; // Adiciona o símbolo de porcentagem
+        },
+    },
+    grid: {
+        borderColor: "#272f38",
+    },
 };
 
 // Função para ajustar as opções dos gráficos conforme a largura da tela
