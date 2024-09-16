@@ -6,11 +6,10 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function show()
+    public function index()
     {
         return view("home", [
             "title" => "HOME",
-            "userName" => "test",
             "pathToProfileImage" => "#"
         ]);
     }

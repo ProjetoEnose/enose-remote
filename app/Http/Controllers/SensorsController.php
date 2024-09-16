@@ -6,11 +6,10 @@ use Illuminate\Http\Request;
 
 class SensorsController extends Controller
 {
-    public function show()
+    public function index()
     {
         return view("sensors", [
             "title" => "SENSORS",
-            "userName" => "test",
             "pathToProfileImage" => "#"
         ]);
     }

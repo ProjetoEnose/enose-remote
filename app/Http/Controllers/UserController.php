@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -45,15 +47,16 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        $user = Auth::user();
+
         return view("user", [
-            "title" => "USER - $id",
-            "userName" => "teste",
+            "title" => "Informações do Usuário - $id",
             "pathToProfileImage" => "#",
-            "userEmail" => "teste@gmail.com",
-            "userPassword" => "teste",
-            "userEmailValidated" => false
+            "userName" => $user->name,
+            "userEmail" => $user->email,
+            "userPassword" => $user->password,
+            "userEmailValidated" => $user->email_verified_at
         ]);
-        //
     }
 
     /**
@@ -64,12 +67,14 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        $user = Auth::user();
+
         return view("settings", [
-            "title" => "USER - $id",
-            "userName" => "teste",
+            "title" => "Editar Informações do Usuário - $id",
+            "userName" => $user->name,
             "pathToProfileImage" => "#",
-            "userEmail" => "teste@gmail.com",
-            "userPassword" => "teste",
+            "userEmail" => $user->email,
+            "userPassword" => $user->password,
         ]);
     }
 
@@ -82,7 +87,33 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd($request);
+
+        // Validação dos dados
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'profileImage' => 'nullable|image|mimes:jpg,png,jpeg,gif|max:2048',
+        ]);
+
+        // Encontrar o usuário pelo ID
+        $user = User::findOrFail($id);
+
+        // Verificar se há uma imagem para upload
+        if ($request->hasFile('profileImage')) {
+            $imagePath = $request->file('profileImage')->store('profile_images', 'public');
+            $user->profile_image = $imagePath;
+        }
+
+        // Atualizar outros campos
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+
+        // Salvar as mudanças
+        $user->save();
+
+        // Redirecionar ou retornar uma resposta de sucesso
+        return redirect()->route('user.edit', $user->id)->with('success', 'Informações atualizadas com sucesso.');
     }
 
     /**

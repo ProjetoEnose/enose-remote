@@ -24,23 +24,25 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+/* definição das rotas de exibição, confirmação de login e logout */
 Route::middleware("guest")->group(function () {
     Route::controller(LoginController::class)->group(function () {
-        Route::get("/login", "show")->name("login.show");
-        Route::post("/login/check", "check")->name("login.check");
+        Route::get("/login", "index")->name("login.index");
+        Route::post("/login", "auth")->name("login.auth");
+        Route::get("/logout", "logout")->name("login.logout");
     });
 });
 
 Route::middleware("auth")->group(function () {
-    Route::get("/home", [HomeController::class, "show"])->name("home.show");
+    Route::get("/home", [HomeController::class, "index"])->name("home.index");
 
-    Route::get("/auth/email", [AuthController::class, "show"])->name("auth.show");
+    Route::get("/auth/email", [AuthController::class, "index"])->name("auth.index");
 
-    Route::get("/sensors", [SensorsController::class, "show"])->name("sensors.show");
+    Route::get("/sensors", [SensorsController::class, "index"])->name("sensors.index");
 
-    Route::get("/dashboard", [DashboardController::class, "show"])->name("dashboard.show");
+    Route::get("/dashboard", [DashboardController::class, "index"])->name("dashboard.index");
 
-    Route::get("/temperature", [TemperatureController::class, "show"])->name("temperature.show");
+    Route::get("/temperature", [TemperatureController::class, "index"])->name("temperature.index");
 
     Route::get("/logout", [LoginController::class, "logout"])->name("logout");
 
