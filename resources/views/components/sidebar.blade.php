@@ -2,7 +2,7 @@
     <i class="fa-solid fa-circle-chevron-left" id="btn-alter-menu"></i>
 
     <nav>
-        <a href="{{ route('home.show') }}">
+        <a href="{{ route('home.index') }}">
             <div class="icon">
                 <i class="fa-solid fa-house"></i>
             </div>
@@ -11,7 +11,7 @@
             </div>
         </a>
 
-        <a href="{{ route('dashboard.show') }}">
+        <a href="{{ route('dashboard.index') }}">
             <div class="icon">
                 <i class="fa-solid fa-chart-simple"></i>
             </div>
@@ -19,7 +19,7 @@
                 dashboard
             </div>
         </a>
-        <a href="{{ route('sensors.show') }}">
+        <a href="{{ route('sensors.index') }}">
             <div class="icon">
                 <i class="fa-solid fa-tower-broadcast"></i>
             </div>
@@ -27,7 +27,7 @@
                 sensores
             </div>
         </a>
-        <a href="{{ route('temperature.show') }}">
+        <a href="{{ route('temperature.index') }}">
             <div class="icon">
                 <i class="fa-solid fa-temperature-arrow-up"></i>
             </div>

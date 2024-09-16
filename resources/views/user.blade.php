@@ -41,7 +41,7 @@
             </div>
         </div>
         <div class="user-info-card-footer">
-            <a href="{{ route('user.edit', ['user' => 'j3v4h3v43w3a4']) }}" id="btn-edit-user-settings">Atualizarperfil
+            <a href="{{ route('user.edit', ['user' => Auth::id()]) }}" id="btn-edit-user-settings">Atualizarperfil
             </a>
         </div>
     </div>

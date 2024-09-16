@@ -14,7 +14,7 @@
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet" />
     <script rel="preconnect" src="https://kit.fontawesome.com/638bd1bffb.js" crossorigin="anonymous"></script>
-    <title>ENOSE REMOTE - {{ $title }}</title>
+    <title>ENOSE REMOTE | {{ $title }}</title>
 </head>
 
 <body>
@@ -37,7 +37,7 @@
         </div>
     @endif
 
-    <form action="{{ route('login.check') }}" method="post" id="log-in-form">
+    <form action="{{ route('login.auth') }}" method="post" id="log-in-form">
         @csrf
         <div class="header-log-in-form">
             <img src="../public/assets/enose.png" alt="logo">

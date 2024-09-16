@@ -5,7 +5,12 @@
 @endsection
 
 @section('content')
-    <form method="post" enctype="multipart/form-data" class="user-info-card card">
+    {{-- trabalhado na atualização de informações --}}
+    <form action="{{ route('user.update', Auth::id()) }}" method="post"
+        enctype="multipart/form-data"class="user-info-card card">
+
+        @csrf
+
         <div class="user-info-card-header">
             <h2>Informações pessoais</h2>
         </div>
@@ -14,7 +19,7 @@
                 <span class="name">avatar:</span>
                 <span class="value">
                     <img src="{{ $pathToProfileImage }}" alt="user-image" width="50px" id="profileImage" />
-                    <input type="file" name="profileImage" id="inputProfileImage" readonly />
+                    <input type="file" name="profileImage" id="inputProfileImage" readonly accept="image/*" />
                     <label for="inputProfileImage" id="labelProfileImage">
                         nova foto
                         <i class="fa-solid fa-file-arrow-up"></i>

@@ -20,7 +20,7 @@
             </a>
         </div>
         <div class="user">
-            <a href="{{ route('user.show', ['user' => 'j3v4h3v43w3a4']) }}">
+            <a href="{{ route('user.show', ['user' => $userID]) }}">
                 <img src="{{ $pathToProfileImage }}" alt="user">
             </a>
         </div>
