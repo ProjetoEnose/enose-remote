@@ -23,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_admin'
     ];
 
     /**
@@ -42,6 +43,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_admin' => 'boolean', // Cast para booleano
     ];
 
     // Remover o incremento da chave primária
@@ -55,5 +57,15 @@ class User extends Authenticatable
     {
         // Armazena o hash da senha em vez da senha em texto simples
         $this->attributes['password'] = Hash::make($value);
+    }
+
+    /**
+     * Verifica se o usuário é administrador.
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return (bool) $this->is_admin; // Converta para booleano
     }
 }
