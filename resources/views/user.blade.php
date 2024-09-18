@@ -12,7 +12,7 @@
             <span>Entrou na ENOSE REMOTE em 11 de abril de 2023 (um ano atrás).</span>
         </div>
         <div class="profile-image">
-            <img src="{{ $pathToProfileImage }}" alt="user" />
+            <img src="{{ asset(session('path_to_profile_image')) }}" alt="user" />
         </div>
     </div>
 

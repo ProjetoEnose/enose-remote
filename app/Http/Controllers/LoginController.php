@@ -36,7 +36,18 @@ class LoginController extends Controller
 
             // Armazena informações do usuário na sessão, se necessário
             $user = Auth::user();
-            $request->session()->put('user_name', $user->name);
+
+            $request->session()->put(
+                'user_name',
+                $user->name,
+            );
+
+            $request->session()->put(
+                'path_to_profile_image',
+                sprintf("/images/avatars/%s.png",  strtoupper($user->name[0]))
+            );
+
+
 
             /* redireciona para a rota que se estava tentando acessar, caso não haja uma tentativa anterior, assume a rota /home como padrão */
             return redirect()->intended("home");

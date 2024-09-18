@@ -21,7 +21,7 @@
         </div>
         <div class="user">
             <a href="{{ route('user.show', ['user' => $userID]) }}">
-                <img src="{{ $pathToProfileImage }}" alt="user">
+                <img src="{{ asset($pathToProfileImage) }}" alt="user">
             </a>
         </div>
     </div>

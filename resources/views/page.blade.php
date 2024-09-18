@@ -22,6 +22,7 @@
 @php
     /* recuperando informações de usuário armazenadas em sessão, que serão utilizadas nas views */
     $userName = session('user_name');
+    $pathToProfileImage = session('path_to_profile_image');
     $userID = Auth::id();
 @endphp
 
