@@ -11,7 +11,34 @@ html {
     scroll-behavior: smooth;
 }
 
-body {
+/* body {
     min-height: 100vh;
     background-color: var(--bg);
+}
+ */
+body {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg);
+    color: var(--font-pri);
+}
+
+.contain {
+    width: 100%;
+    flex: 1 1;
+    display: flex;
+}
+
+main {
+    height: 92vh;
+    padding: 20px;
+    flex: 1 1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    overflow: auto;
+    border: 1px dashed red;
 }
