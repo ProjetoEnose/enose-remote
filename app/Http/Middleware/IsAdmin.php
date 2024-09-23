@@ -20,9 +20,6 @@ class IsAdmin
     {
         $user = Auth::user();
 
-        // Debugging
-        dd($user, $user->isAdmin());
-
         if ($user && $user->isAdmin()) {
             return $next($request);
         }

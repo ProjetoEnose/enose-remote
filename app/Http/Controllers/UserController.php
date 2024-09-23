@@ -3,11 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    /* injetando o middleware que permisionará o acesso a alguns recursos */
+    public function __construct()
+    {
+        // Aplica o middleware apenas para as rotas que precisam de verificação
+        $this->middleware('check.if.admin')->only(['create', 'store', 'destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +34,12 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $allUsers = User::all(['name', 'email', 'is_admin', 'created_at']);
+
+        return view("user/admin.create", [
+            "title" => "Gerir Usuários - Administrador - " . Auth::id(),
+            "allUsers" => $allUsers,
+        ]);
     }
 
     /**
@@ -49,7 +63,7 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
-        return view("user", [
+        return view("user.show", [
             "title" => "Informações do Usuário - $id",
             "pathToProfileImage" => "#",
             "userName" => $user->name,
@@ -69,7 +83,7 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
-        return view("settings", [
+        return view("user.settings", [
             "title" => "Editar Informações do Usuário - $id",
             "userName" => $user->name,
             "pathToProfileImage" => "#",
