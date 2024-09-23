@@ -1,0 +1,56 @@
+@import url("../../variables.css");
+
+.users-list-contain {
+    height: 86vh;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+table {
+    width: 100%;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    table-layout: fixed; /* Mantém as colunas alinhadas corretamente */
+}
+
+thead {
+    position: sticky;
+    top: 0;
+    z-index: 2; /* Garante que o thead fique acima do tbody durante a rolagem */
+}
+
+thead tr {
+    border-radius: 3px;
+    background-color: var(--bg);
+}
+
+tbody {
+    display: block;
+    height: 55vh; /* Define uma altura para o tbody para permitir a rolagem */
+    overflow-y: auto; /* Adiciona rolagem vertical */
+}
+
+tbody tr {
+    display: table;
+    width: 100%;
+    border-bottom: 1px solid var(--separator);
+    table-layout: fixed; /* Garante o alinhamento das colunas no tbody */
+}
+
+thead tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed; /* Mantém o alinhamento correto do thead */
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: left; /* Centraliza o texto nas colunas */
+}
+
+th {
+}
