@@ -11,11 +11,6 @@ html {
     scroll-behavior: smooth;
 }
 
-/* body {
-    min-height: 100vh;
-    background-color: var(--bg);
-}
- */
 body {
     height: 100vh;
     width: 100%;
@@ -26,19 +21,36 @@ body {
 }
 
 .contain {
+    height: 90vh;
     width: 100%;
-    flex: 1 1;
     display: flex;
 }
 
+.card {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    gap: 40px;
+    background-color: var(--card);
+    border: 1px solid var(--separator);
+    border-radius: 8px;
+}
+
+.card-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--separator);
+}
+
 main {
-    height: 92vh;
     padding: 20px;
+    height: 100%;
     flex: 1 1;
     display: flex;
     align-items: center;
     flex-direction: column;
     gap: 20px;
     overflow: auto;
-    border: 1px dashed red;
+    /*     border: 1px dashed red;
+ */
 }

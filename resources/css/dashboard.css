@@ -1,21 +1,5 @@
 @import url("variables.css");
 
-.contain-chart {
-    width: 80%;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-    background-color: var(--card);
-    border-radius: 8px;
-}
-
-.contain-chart header {
-    width: 100%;
-    border-bottom: 1px solid var(--separator);
-}
-
 #chart {
     width: 100%;
     /*     border: 1px solid red;
