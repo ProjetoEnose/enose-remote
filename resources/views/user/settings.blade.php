@@ -1,17 +1,17 @@
 @extends('page')
 
 @section('specific-styles')
-    @vite('resources/css/settings.css')
+    @vite('resources/css/user/settings.css')
 @endsection
 
 @section('content')
     {{-- trabalhado na atualização de informações --}}
-    <form action="{{ route('user.update', Auth::id()) }}" method="post"
-        enctype="multipart/form-data"class="user-info-card card">
+    <form action="{{ route('user.update', Auth::id()) }}" method="post" enctype="multipart/form-data"
+        class="user-info-card card">
 
         @csrf
 
-        <div class="user-info-card-header">
+        <div class="card-header">
             <h2>Informações pessoais</h2>
         </div>
         <div class="table-user-data">

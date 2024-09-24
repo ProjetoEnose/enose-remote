@@ -5,18 +5,20 @@
 @endsection
 
 @section('content')
-    <div class="chart card">
-        <div class="chart-header">
+    <div class="card">
+        <div class="card-header">
             <h2>leituras dos sensores</h2>
         </div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae asperiores doloremque modi ut. Ipsa
-        voluptatibus,
-        quisquam nesciunt laborum necessitatibus officia expedita quam iusto libero dolorem explicabo, maxime, aut nemo
-        odit?
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae asperiores doloremque modi ut. Ipsa
+            voluptatibus,
+            quisquam nesciunt laborum necessitatibus officia expedita quam iusto libero dolorem explicabo, maxime, aut nemo
+            odit?
+        </p>
     </div>
 
-    <div class="sensor-list card">
-        <div class="sensor-list-header">
+    <div class="card">
+        <div class="card-header">
             <h2>sensores</h2>
         </div>
         <div class="sensor-list-body">

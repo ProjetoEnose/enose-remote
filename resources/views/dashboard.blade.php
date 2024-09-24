@@ -5,17 +5,17 @@
 @endsection
 
 @section('content')
-    <div class="contain-chart">
-        <header>
-            <h1>Temporal</h1>
-        </header>
+    <div class="card">
+        <div class="card-header">
+            <h2>Temporal</h2>
+        </div>
         <div id="chart"></div>
     </div>
 
-    <div class="contain-chart">
-        <header>
-            <h1>Tempo real</h1>
-        </header>
+    <div class="card">
+        <div class="card-header">
+            <h2>Tempo real</h2>
+        </div>
         <div id="chart2"></div>
     </div>
 @endsection

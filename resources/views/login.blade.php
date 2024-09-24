@@ -21,9 +21,6 @@
     @if ($showModal)
         <div class="modal-contain">
             <div class="modal">
-                <div class="header-modal">
-                    <img src="../public/assets/logo.png" alt="" width="80px">
-                </div>
                 <div class="body-modal">
                     <h3>
                         Infelizmente não foi possível prosseguir
@@ -40,7 +37,7 @@
     <form action="{{ route('login.auth') }}" method="post" id="log-in-form">
         @csrf
         <div class="header-log-in-form">
-            <img src="../public/assets/enose.png" alt="logo">
+            <img src="{{ asset('images/enose.png') }}" alt="logo">
         </div>
 
         <div class="body-log-in-form">

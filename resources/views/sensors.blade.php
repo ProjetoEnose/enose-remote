@@ -5,8 +5,8 @@
 @endsection
 
 @section('content')
-    <div class="sensor" id="mq3">
-        <div class="sensor-header">
+    <div class="card" id="mq3">
+        <div class="card-header">
             <h2 id="name-sensor">MQ3</h2>
         </div>
         <div class="sensor-footer">
@@ -14,8 +14,8 @@
         </div>
     </div>
 
-    <div class="sensor" id="mq5">
-        <div class="sensor-header">
+    <div class="card" id="mq5">
+        <div class="card-header">
             <h2 id="name-sensor">MQ5</h2>
         </div>
         <div class="sensor-footer">

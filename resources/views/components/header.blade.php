@@ -1,6 +1,6 @@
 <header>
     <div class="logo-contain">
-        <img src="../public/assets/logo.png" alt="logo">
+        <img src="{{ asset('images/logo.png') }}" alt="logo">
         <span class="separator">
             /
         </span>

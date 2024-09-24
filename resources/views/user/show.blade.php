@@ -1,7 +1,7 @@
 @extends('page')
 
 @section('specific-styles')
-    @vite('resources/css/user.css')
+    @vite('resources/css/user/show.css')
 @endsection
 
 @section('content')
@@ -12,12 +12,12 @@
             <span>Entrou na ENOSE REMOTE em 11 de abril de 2023 (um ano atrás).</span>
         </div>
         <div class="profile-image">
-            <img src="{{ asset(session('path_to_profile_image')) }}" alt="user" />
+            <img src="{{ asset(session('pathToProfileImage')) }}" alt="user" />
         </div>
     </div>
 
     <div class="user-info-card card">
-        <div class="user-info-card-header">
+        <div class="card-header">
             <h2>Informações pessoais</h2>
         </div>
         <div class="table-user-data">
@@ -41,18 +41,8 @@
             </div>
         </div>
         <div class="user-info-card-footer">
-            <a href="{{ route('user.edit', ['user' => Auth::id()]) }}" id="btn-edit-user-settings">Atualizarperfil
+            <a href="{{ route('user.edit', ['user' => Auth::id()]) }}" id="btn-edit-user-settings">Atualizar perfil
             </a>
-        </div>
-    </div>
-
-    <div class="delete-user-card card">
-        <div class="delete-user-card-header">
-            <h2>Deletar usuário</h2>
-        </div>
-        <div class="delete-user-card-body">
-            Depois de excluir seu usuário, não há como voltar atrás. Por favor, tenha certeza.
-            <a href="?deleteUser=true" id="btn-delete-user">Deletar usuário</a>
         </div>
     </div>
 @endsection

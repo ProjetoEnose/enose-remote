@@ -35,16 +35,26 @@
                 temperatura
             </div>
         </a>
-        <nav>
-            <a href="{{ route('logout') }}">
+
+        @if ($isAdmin)
+            <a href="{{ route('user.create') }}">
                 <div class="icon">
-                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <i class="fa-solid fa-users-gear"></i>
                 </div>
                 <div class="description">
-                    sair
+                    gerir usuários
                 </div>
             </a>
-        </nav>
+        @endif
+
+        <a href="{{ route('logout') }}">
+            <div class="icon">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </div>
+            <div class="description">
+                sair
+            </div>
+        </a>
 
     </nav>
 </div>
