@@ -19,7 +19,8 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'id' => (string) Str::uuid(), // Gera um UUID para o campo 'id'
+            /* O uso do HasUuid abdica essa linha  */
+            //'id' => (string) Str::uuid(), // Gera um UUID para o campo 'id'
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
