@@ -1,10 +1,116 @@
 @import url("../../variables.css");
 
+.alert {
+    position: fixed;
+    width: 380px;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--card);
+    border: 1px solid var(--separator);
+    border-radius: 5px;
+    transition: all 0.2s ease-in-out; /* Transição aplicada para mudanças suaves */
+    animation: fadeInToBottom 0.4s ease-in-out forwards; /* Animação aplicada com forwards */
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+        rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+/* Classe para aplicar a animação de saída */
+.alert.exit {
+    animation: fadeOutToBottom 0.4s ease-in-out forwards; /* Animação aplicada com forwards */
+}
+
+@keyframes fadeInToBottom {
+    0% {
+        bottom: -200px; /* Começa fora da tela */
+        opacity: 0;
+    }
+    100% {
+        bottom: 20px; /* Termina na posição inicial */
+        opacity: 1;
+    }
+}
+
+/* Animação para deslizar o modal para fora da tela */
+@keyframes fadeOutToBottom {
+    0% {
+        bottom: 20px;
+        opacity: 1;
+    }
+    100% {
+        bottom: -200px; /* Move o modal para fora da tela */
+        opacity: 0; /* Suaviza o desaparecimento */
+    }
+}
+
+.alert h3 {
+    padding: 20px 20px 0px 20px;
+    color: #07a007;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.alert p {
+    padding: 0 20px 20px 20px;
+    font-size: 0.85rem;
+}
+
+.timer-line {
+    top: 0;
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    background-color: var(--button);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.alert h3 i {
+    height: 32px;
+    width: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #014727;
+}
+
 .users-list-contain {
-    height: 86vh;
+    gap: 20px !important;
+}
+
+.input-search-contain {
+    width: 100%;
+    position: relative;
+    /*     border: 1px solid yellow;
+ */
+}
+
+.input-search-contain input {
+    font-size: 1rem;
+    min-width: 40%;
+    background-color: var(--hover-card);
+    color: var(--font-pry);
+    padding: 5px 5px 5px 30px;
+    border-radius: 5px;
+    border: 1px solid var(--separator);
+    outline: none;
+    transition: 0.3s;
+}
+
+.input-search-contain i {
+    position: absolute;
+    left: 8px;
+    bottom: 10px;
+    cursor: pointer;
+}
+
+.input-search-contain input:focus {
+    border-color: var(--theme);
+    transition: 0.3s;
 }
 
 table {
+    position: relative;
     width: 100%;
     border: none;
     font-size: 0.9rem;
@@ -13,9 +119,9 @@ table {
 }
 
 thead {
-    position: sticky;
+    position: absolute;
     top: 0;
-    z-index: 2; /* Garante que o thead fique acima do tbody durante a rolagem */
+    z-index: 1; /* Garante que o thead fique acima do tbody durante a rolagem */
 }
 
 thead tr {
@@ -25,6 +131,7 @@ thead tr {
 
 tbody {
     display: block;
+    margin-top: 40px;
     height: 55vh; /* Define uma altura para o tbody para permitir a rolagem */
     overflow-y: auto; /* Adiciona rolagem vertical */
 }
@@ -48,5 +155,249 @@ td {
     text-align: left; /* Centraliza o texto nas colunas */
 }
 
-th {
+#btn-add-new-user {
+    width: 250px;
+    font-size: 1rem;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 10px;
+    background-color: var(--button);
+    color: var(--font-pry);
+    cursor: pointer;
+}
+
+.form-add-new-user {
+    position: relative;
+    width: 35% !important;
+    gap: 30px;
+}
+
+#btn-close-modal-form {
+    height: 30px;
+    width: 30px;
+    padding-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    border-radius: 5px;
+    top: 20px;
+    right: 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--font-sec);
+    transition: 0.2s;
+    border: 1px solid transparent;
+}
+
+#btn-close-modal-form:hover {
+    color: var(--font-pry);
+    border: 1px solid var(--separator);
+    background-color: var(--hover-card);
+    transition: 0.2s;
+}
+
+.modal-contain-form {
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.652);
+    /*   animation: fadeIn 0.3s ease-in-out;
+ */
+    transition: 0.2s all;
+}
+
+/* redundância até generalização da lógica */
+.card-body {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /*     border: 1px solid red;
+ */
+}
+
+.box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    /*     background-color: red;
+ */
+}
+
+.fa-eye,
+.fa-eye-slash {
+    position: absolute;
+    right: 8px;
+    bottom: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.box input {
+    height: 100%;
+    width: 100%;
+    font-size: 1rem;
+    padding: 7px 10px;
+    border: 1px solid var(--separator);
+    background-color: var(--hover-card);
+    border-radius: 5px;
+    outline: none;
+    transition: 0.2s;
+    color: var(--font-pry);
+}
+
+.box input::placeholder {
+    opacity: 0;
+    transition: 0.4s;
+}
+
+.box label {
+    position: absolute;
+    left: 20px;
+    bottom: 8px;
+    pointer-events: none;
+    font-size: 1rem;
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+.box input:focus ~ label,
+.box input:not(:placeholder-shown) ~ label {
+    transform: translateY(-23px);
+    left: 10px;
+    font-size: 0.8rem;
+}
+
+.box input:focus::placeholder {
+    opacity: 1;
+    transition: 0.4s;
+}
+
+.box input:focus {
+    border-color: var(--theme);
+    transition: 0.2s;
+}
+
+.box span {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.box select {
+    width: 50%;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--font-pry);
+    background-color: var(--hover-card);
+    padding: 5px;
+    border-radius: 5px;
+    outline: none;
+    transition: 0.2s;
+    border: 1px solid var(--separator);
+    cursor: pointer;
+}
+
+.box select:focus {
+    border-color: var(--theme);
+    transition: 0.2s;
+}
+
+.error-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.1rem;
+    opacity: 0;
+    color: red !important;
+    transition: 0.3s;
+}
+
+.show-error-message {
+    opacity: 1;
+    font-size: 0.8rem;
+    color: red !important;
+}
+
+.footer-card button {
+    width: 200px;
+    background-color: var(--button);
+    color: var(--font-pry);
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+}
+
+.close-modal-contain {
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s all;
+}
+
+.modal {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 20px;
+    background-color: var(--card);
+    color: var(--font-pri);
+    width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 5;
+    border-radius: 5px;
+    border: 1px solid var(--separator);
+}
+
+.body-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: justify;
+    gap: 10px;
+}
+
+.body-modal h3 {
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+.body-modal p {
+    font-size: 0.9rem;
+    color: var(--font-sec);
+}
+
+.footer-modal {
+    border-top: 1px solid var(--separator);
+    padding-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-modal button {
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    color: var(--button);
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
 }

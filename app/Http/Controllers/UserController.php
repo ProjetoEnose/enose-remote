@@ -32,13 +32,15 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $allUsers = User::all(['name', 'email', 'is_admin', 'created_at']);
 
         return view("user/admin.create", [
             "title" => "Gerir Usuários - Administrador - " . Auth::id(),
             "allUsers" => $allUsers,
+            "success" => $request->session()->get("success", false),
+            'newUserName' => $request->session()->get('newUserName')
         ]);
     }
 
@@ -50,7 +52,30 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Valida os dados antes de continuar
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:8',
+            'is_admin' => 'required|in:true,false', // Valida o campo is_admin
+        ], [
+            'name.required' => 'O nome é obrigatório.',
+            'email.required' => 'O e-mail é obrigatório.',
+            'email.email' => 'Forneça um endereço de e-mail válido.',
+            'email.unique' => 'Esse e-mail já está cadastrado.',
+            'password.required' => 'A senha é obrigatória.',
+            'password.min' => 'A senha deve ter no mínimo 8 caracteres.',
+        ]);
+
+        // Converte o valor de is_admin para booleano
+        $validatedData['is_admin'] = $request->input('is_admin') === 'true';
+
+        User::create($validatedData); // O mutator de 'password' irá hash automaticamente
+
+        return redirect()->back()->with([
+            'success' => true,
+            'newUserName' => $request->only('name')["name"]
+        ]);
     }
 
     /**
