@@ -2,6 +2,23 @@
 
 #chart {
     width: 100%;
-    /*     border: 1px solid red;
- */
+    border: 1px solid red;
+}
+
+#chart2 {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid red;
+}
+
+#filter-form {
+    border: 1px solid rebeccapurple;
+    display: flex;
+}
+
+.contain-charts {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    border: 1px solid greenyellow;
 }
