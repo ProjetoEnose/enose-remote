@@ -42,6 +42,10 @@ body {
     border-bottom: 1px solid var(--separator);
 }
 
+.card-header h2 {
+    font-size: 2rem;
+}
+
 main {
     padding: 20px;
     height: 100%;
