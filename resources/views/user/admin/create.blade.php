@@ -2,58 +2,12 @@
 
 @section('specific-styles')
     @vite(['resources/css/user/admin/create.css'])
+    @livewireStyles
 @endsection
 
 @section('content')
-    {{-- container com a lista de usuários  --}}
-    <div class="users-list-contain card">
-        <div class="card-header">
-            <h2>Lista de usuários</h2>
-        </div>
-        <div class="input-search-contain">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" name="searchTerm" id="search-term" placeholder="Busque aqui">
-        </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th colspan="2">E-mail</th> <!-- Colspan adicionado -->
-                    <th>Entrou</th>
-                    <th>É um administrador</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($allUsers as $user)
-                    <tr>
-                        <td>{{ $user->name }}</td>
-                        <td colspan="2">{{ $user->email }}</td> <!-- Ocupa 2 colunas -->
-                        <td>{{ $user->created_at->format('d/m/Y') }}
-                        <td>
-                            @php
-                                $color = $user->is_admin ? '#07a007' : '#f01313';
-                            @endphp
-                            <span
-                                style="color: {{ $color }}; border: 1px solid {{ $color }}; padding: 3px 5px; border-radius: 5px;">
-                                {{ $user->is_admin ? 'Sim' : 'Não' }}
-                            </span> <!-- Coluna normal -->
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="4">
-                            <h2>Nenhum usuário registrado</h2>
-                        </td> <!-- Ajuste para ocupar todas as colunas -->
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
+    @livewire('user-list') <!-- Inclui o componente Livewire -->
 
-        <button type="button" id="btn-add-new-user">
-            <i class="fa-solid fa-circle-plus"></i>
-            Adicionar novo usuário
-        </button>
-    </div {{-- exibe o modal informando a inserção de um novo usuário --}}>
     @if ($success)
         <div class="alert">
             <h3>
@@ -151,6 +105,8 @@
 
 @section('specific-scripts')
     @vite(['resources/js/user/admin/create.js'])
+
+    @livewireScripts
 
     <script>
         // Verifica se existem erros e abre o modal caso existam
