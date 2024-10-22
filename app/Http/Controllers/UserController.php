@@ -39,8 +39,10 @@ class UserController extends Controller
         return view("user/admin.create", [
             "title" => "Gerir Usuários - Administrador - " . Auth::id(),
             "allUsers" => $allUsers,
-            "success" => $request->session()->get("success", false),
-            'newUserName' => $request->session()->get('newUserName')
+            "successOnInsert" => $request->session()->get("successOnInsert", false),
+            'newUserName' => $request->session()->get('newUserName'),
+            'successOnDelete' => $request->session()->get('successOnDelete'),
+            'userNameDeleted' => $request->session()->get('userNameDeleted')
         ]);
     }
 
@@ -73,7 +75,7 @@ class UserController extends Controller
         User::create($validatedData); // O mutator de 'password' irá hash automaticamente
 
         return redirect()->back()->with([
-            'success' => true,
+            'successOnInsert' => true,
             'newUserName' => $request->only('name')["name"]
         ]);
     }
@@ -86,15 +88,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = Auth::user();
-
         return view("user.show", [
             "title" => "Informações do Usuário - $id",
-            "pathToProfileImage" => "#",
-            "userName" => $user->name,
-            "userEmail" => $user->email,
-            "userPassword" => $user->password,
-            "userEmailValidated" => $user->email_verified_at
+            'user' => Auth::user(),
         ]);
     }
 
@@ -106,14 +102,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = Auth::user();
-
-        return view("user.settings", [
+        return view("user.edit", [
             "title" => "Editar Informações do Usuário - $id",
-            "userName" => $user->name,
-            "pathToProfileImage" => "#",
-            "userEmail" => $user->email,
-            "userPassword" => $user->password,
+            'user' => Auth::user()
         ]);
     }
 
@@ -126,33 +117,24 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request);
+        //dd($request);
 
-        // Validação dos dados
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'profileImage' => 'nullable|image|mimes:jpg,png,jpeg,gif|max:2048',
+        ], [
+            'name.required' => 'O nome é obrigatório.',
+            'email.required' => 'O e-mail é obrigatório.',
+            'email.email' => 'Forneça um endereço de e-mail válido.',
+            'profileImage.image' => 'O arquivo deve ser uma imagem.',
+            'profileImage.mimes' => 'A imagem deve ser do tipo: jpg, png, jpeg ou gif.',
+            'profileImage.max' => 'A imagem não deve ter mais de 2048 kilobytes.',
         ]);
 
-        // Encontrar o usuário pelo ID
-        $user = User::findOrFail($id);
-
-        // Verificar se há uma imagem para upload
-        if ($request->hasFile('profileImage')) {
-            $imagePath = $request->file('profileImage')->store('profile_images', 'public');
-            $user->profile_image = $imagePath;
-        }
-
-        // Atualizar outros campos
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-
-        // Salvar as mudanças
-        $user->save();
 
         // Redirecionar ou retornar uma resposta de sucesso
-        return redirect()->route('user.edit', $user->id)->with('success', 'Informações atualizadas com sucesso.');
+        return redirect()->back()->with('success', 'Informações atualizadas com sucesso.');
     }
 
     /**
@@ -163,6 +145,15 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+
+        $deleted = $user->delete();
+
+        return redirect()->back()->with(
+            [
+                "successOnDelete" => $deleted,
+                "userNameDeleted" => $deleted ? $user->name : null // Garante que o nome só seja enviado se o usuário for excluído
+            ]
+        );
     }
 }

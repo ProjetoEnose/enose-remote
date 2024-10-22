@@ -7,11 +7,12 @@
 
 .line,
 .line-blur {
-    padding: 5px 10px;
+    padding: 10px;
     display: flex;
     align-items: center;
     gap: 10px;
-    border: 1px solid aqua;
+    /*     border: 1px solid aqua;
+ */
 }
 
 .line-blur {
@@ -20,22 +21,47 @@
 
 .name {
     width: 30%;
-    border: 1px solid red;
+    /*     border: 1px solid red;
+ */
 }
 
 .value {
     flex: 1 1;
     display: flex;
+    flex-direction: column;
+    gap: 5px;
+    /*     border: 1px solid aqua;
+ */
+}
+
+.box {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    /*     border: 1px solid red;
+ */
+}
+
+.error-message {
+    display: flex;
     align-items: center;
-    gap: 20px;
-    border: 1px solid aqua;
+    gap: 10px;
+    font-size: 0.1rem;
+    opacity: 0;
+    color: red !important;
+    transition: 0.3s;
+}
+
+.show-error-message {
+    opacity: 1;
+    font-size: 0.8rem;
+    color: red !important;
 }
 
 #profileImage {
     height: 40px;
     width: 40px;
     border-radius: 50%;
-    border: 1px dashed red;
 }
 
 #inputName,
@@ -156,9 +182,15 @@
     justify-content: center;
     opacity: 0;
     pointer-events: none;
-    background-color: rgba(0, 0, 0, 0.652);
-    /*   animation: fadeIn 0.3s ease-in-out;
- */
+
+    /* From https://css.glass */
+    background: rgba(0, 0, 0, 0.52);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(2.1px);
+    -webkit-backdrop-filter: blur(2.1px);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+
     transition: 0.2s all;
 }
 
