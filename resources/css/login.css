@@ -143,7 +143,15 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.652);
+
+    /* From https://css.glass */
+    background: rgba(0, 0, 0, 0.52);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(2.1px);
+    -webkit-backdrop-filter: blur(2.1px);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+
     animation: fadeIn 0.3s ease-in-out;
     transition: 0.2s all;
 }

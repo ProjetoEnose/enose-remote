@@ -11,12 +11,10 @@ header {
 }
 
 .logo-contain {
-    width: 250px;
+    width: 300px;
     display: flex;
     align-items: center;
     gap: 5px;
-    /*   border: 1px dashed red;
- */
 }
 
 .logo-contain img {
@@ -28,11 +26,16 @@ header {
 
 .separator {
     margin-right: 5px;
-    color: var(--separator);
+    color: var(--font-sec);
 }
 
 #user {
+    flex: 1;
     font-weight: 600;
+    /* Adicionando controle de reticências */
+    white-space: nowrap; /* Impede quebra de linha */
+    overflow: hidden; /* Esconde o conteúdo que ultrapassar a largura */
+    text-overflow: ellipsis; /* Adiciona as reticências quando o texto ultrapassa */
 }
 
 .services-contain {

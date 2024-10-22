@@ -27,7 +27,7 @@ body {
 }
 
 .card {
-    width: 90%;
+    width: 95%;
     display: flex;
     flex-direction: column;
     padding: 40px;
@@ -38,7 +38,8 @@ body {
 }
 
 .card-header {
-    padding-bottom: 10px;
+    position: relative;
+    padding: 0 0 10px 0;
     border-bottom: 1px solid var(--separator);
 }
 
