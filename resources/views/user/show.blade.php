@@ -7,9 +7,21 @@
 @section('content')
     <div class="user-card card">
         <div class="about">
-            <span id="name">{{ $userName }}</span>
-            <span>{{ $userEmail }}</span>
-            <span>Entrou na ENOSE REMOTE em 11 de abril de 2023 (um ano atrás).</span>
+            <span id="name">{{ $user->name }}</span>
+            <span>{{ $user->email }}</span>
+            <span>
+                @php
+                    $cbCreatedAt = \Carbon\Carbon::parse($user->created_at);
+                    $entered = $cbCreatedAt->locale('pt_BR')->translatedFormat('d \d\e F \d\e Y');
+                    $enteredDiffForHumans = $cbCreatedAt->diffForHumans();
+                @endphp
+
+                Juntou-se a equipe Enose Remote:
+                <span style="background: var(--separator); padding: 4px; border-radius: 5px;">
+                    {{ $entered }}
+                    ({{ $enteredDiffForHumans }})
+                </span>
+            </span>
         </div>
         <div class="profile-image">
             <img src="{{ asset(session('pathToProfileImage')) }}" alt="user" />
@@ -23,25 +35,25 @@
         <div class="table-user-data">
             <div class="line">
                 <span class="name">nome:</span>
-                <span class="value">{{ $userName }}</span>
+                <span class="value">{{ $user->name }}</span>
             </div>
             <div class="line-blur">
                 <span class="name">e-mail:</span>
-                <span class="value">{{ $userEmail }}</span>
+                <span class="value">{{ $user->email }}</span>
             </div>
             <div class="line">
                 <span class="name">senha:</span>
                 <span class="value">
-                    <input type="password" value="{{ $userPassword }}" readonly />
+                    <input type="password" value="{{ $user->password }}" readonly />
                 </span>
             </div>
             <div class="line-blur">
                 <span class="name">status do e-mail:</span>
-                <span class="value">{{ $userEmailValidated ? 'validado' : 'não validado' }}</span>
+                <span class="value">{{ $user->email_verified_at ? 'validado' : 'não validado' }}</span>
             </div>
         </div>
         <div class="user-info-card-footer">
-            <a href="{{ route('user.edit', ['user' => Auth::id()]) }}" id="btn-edit-user-settings">Atualizar perfil
+            <a href="{{ route('user.edit', ['user' => $user->id]) }}" id="btn-edit-user-settings">Atualizar perfil
             </a>
         </div>
     </div>

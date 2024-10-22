@@ -19,7 +19,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /*   border: 1px solid fuchsia;
+    /*     border: 1px solid fuchsia;
  */
 }
 
@@ -62,7 +62,7 @@
 
 .line,
 .line-blur {
-    padding: 10px;
+    padding: 15px;
     display: flex;
     align-items: center;
 }
