@@ -5,28 +5,23 @@
 @endsection
 
 @section('content')
-    {{-- DropDown de filtro para as leituras  --}}
-    <form id="filter-form" method="GET" action="{{ route('dashboard.index') }}">
-        <label for="day">Selecione o dia:</label>
-        <select name="day" id="day" onchange="document.getElementById('filter-form').submit()">
-            @foreach ($days as $day)
-                <option value="{{ $day }}" {{ $day == $selectedDay ? 'selected' : '' }}>
-                    {{ \Carbon\Carbon::parse($day)->format('d/m/Y') }} <!-- Formatação da data -->
-                </option>
-            @endforeach
-        </select>
-    </form>
-
     <div class="card">
         <div class="card-header">
-            <h2>Temporal</h2>
-        </div>
-        <div id="chart2"></div>
-    </div>
+            <h2>Levantamento</h2>
+            <span>{{ \Carbon\Carbon::parse($selectedDay)->locale('pt_BR')->translatedFormat('d \d\e F \d\e Y') }}</span>
 
-    <div class="card">
-        <div class="card-header">
-            <h2>Temporal</h2>
+            {{-- DropDown de filtro para as leituras  --}}
+            <form id="filter-form" method="GET" action="{{ route('dashboard.index') }}">
+                <label for="day">Selecione o dia:</label>
+                <select name="day" id="day" onchange="document.getElementById('filter-form').submit()">
+                    @foreach ($days as $day)
+                        <option value="{{ $day }}" {{ $day == $selectedDay ? 'selected' : '' }}>
+                            {{ \Carbon\Carbon::parse($day)->format('d/m/Y') }} <!-- Formatação da data -->
+                        </option>
+                    @endforeach
+                </select>
+            </form>
+
         </div>
         <div id="chart"></div>
     </div>

@@ -2,23 +2,33 @@
 
 #chart {
     width: 100%;
-    border: 1px solid red;
-}
-
-#chart2 {
-    width: 100%;
-    overflow-x: auto;
-    border: 1px solid red;
 }
 
 #filter-form {
-    border: 1px solid rebeccapurple;
+    /*     border: 1px solid rebeccapurple;
+ */
     display: flex;
+    gap: 5px;
+    font-size: 0.9rem;
+    flex-direction: column;
+    font-weight: 600;
+    position: absolute;
+    right: 0;
+    bottom: 15px;
 }
 
-.contain-charts {
-    width: 100%;
-    display: flex;
-    gap: 20px;
-    border: 1px solid greenyellow;
+#filter-form select {
+    font-weight: 500;
+    color: var(--font-pry);
+    background-color: var(--hover-card);
+    padding: 5px;
+    border-radius: 5px;
+    outline: none;
+    transition: 0.2s;
+    border: 1px solid var(--separator);
+    cursor: pointer;
+}
+
+#filter-form select:focus {
+    border-color: var(--theme);
 }
