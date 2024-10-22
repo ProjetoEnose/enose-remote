@@ -8,14 +8,18 @@
 @section('content')
     @livewire('user-list') <!-- Inclui o componente Livewire -->
 
-    @if ($success)
+    @if ($successOnDelete or $successOnInsert)
         <div class="alert">
             <h3>
                 <i class="fa-solid fa-check"></i>
-                Usuário inserido!
+                Usuário {{ $successOnInsert ? 'Inserido' : 'Deletado' }}!
             </h3>
             <div class="timer-line"></div>
-            <p>O novo usuário <span style="font-weight: 600">{{ $newUserName }}</span> foi devidamente registrado.</p>
+            <p>
+                O {{ $successOnInsert ? 'novo(a)' : '' }} usuário(a) <span
+                    style="font-weight: 600">{{ $newUserName ?? $userNameDeleted }}</span>
+                foi devidamente {{ $successOnInsert ? 'registrado' : 'removido' }}.
+            </p>
         </div>
     @endif
 @endsection
@@ -111,7 +115,7 @@
     <script>
         // Verifica se existem erros e abre o modal caso existam
         @if ($errors->any())
-            document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('DOMContentLoaded', () => {
                 // Lógica para abrir o modal
                 document.querySelector('.modal-contain-form').classList.remove('close-modal-contain');
             });

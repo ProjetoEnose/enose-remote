@@ -6,6 +6,12 @@ function getElements() {
     };
 }
 
+function getElementsFormDeleteUser() {
+    return {
+        formsDeleteUser: document.querySelectorAll(".form-delete-user"),
+    };
+}
+
 function getAddNewUserFormElements() {
     return {
         form: document.querySelector(".form-add-new-user"),
@@ -32,10 +38,6 @@ const getElemetsModal = () => {
         modalForm: {
             element: document.querySelector(".modal-contain-form"),
             btnClose: document.getElementById("btn-close-modal-form"),
-        },
-        modalAlert: {
-            element: document.querySelector(".modal-contain"),
-            btnClose: document.getElementById("btb-close-modal"),
         },
     };
 };
@@ -92,8 +94,8 @@ function animationTimer(timerLine, alertModal) {
     );
 
     /* Adiciona os listener aos modais de adição de novo usuário e alerta */
-    const { modalForm, modalAlert } = getElemetsModal();
-    [modalForm, modalAlert].forEach((modal) => {
+    const { modalForm } = getElemetsModal();
+    [modalForm].forEach((modal) => {
         const { btnClose, element } = modal;
 
         if (btnClose !== null) {
@@ -110,7 +112,30 @@ function animationTimer(timerLine, alertModal) {
         forms.toggleVisibilityModal(modalForm.element)
     );
 
+    /* lógica do alert de nova inserção */
     const timerLine = document.querySelector(".timer-line");
     const alertModal = document.querySelector(".alert");
     if (alertModal != null) animationTimer(timerLine, alertModal);
+
+    /* lógica do form de deleção de usuário */
+    const { formsDeleteUser } = getElementsFormDeleteUser();
+    formsDeleteUser.forEach((form) => {
+        form.onsubmit = (event) => {
+            event.preventDefault();
+
+            // Captura a linha da tabela (tr) que contém o formulário
+            const userRow = event.target.closest("tr");
+
+            // Aqui você pode manipular a linha e os dados dela, por exemplo:
+            const userName = userRow.querySelector("td:first-child").innerText;
+
+            // Pergunta de confirmação
+            const userConfirmed = confirm(
+                `Tem certeza de que deseja remover ${userName}?`
+            );
+
+            // Submete o formulário após a confirmação
+            if (userConfirmed) form.submit();
+        };
+    });
 })();

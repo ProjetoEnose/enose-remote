@@ -153,7 +153,60 @@ thead tr {
 th,
 td {
     padding: 10px;
-    text-align: left; /* Centraliza o texto nas colunas */
+    text-align: left;
+    white-space: nowrap; /* Evita quebras de linha indesejadas */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Trunca o texto se for muito longo */
+}
+
+/* Especificando largura das colunas */
+th:nth-child(1),
+td:nth-child(1) {
+    width: 20%; /* Define a largura para o nome */
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+    width: 25%; /* Define a largura para o e-mail */
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+    width: 15%; /* Define a largura para a data */
+}
+
+th:nth-child(4),
+td:nth-child(4) {
+    width: 20%; /* Define a largura para a coluna "É um administrador" */
+}
+
+th:nth-child(5),
+td:nth-child(5) {
+    flex: 1; /* Define a largura para a coluna de ações */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#btn-delete-user {
+    width: 35px;
+    height: 35px;
+    background-color: transparent;
+    border-radius: 5px;
+    color: var(--font-sec);
+    border: 1px solid var(--separator);
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#btn-delete-user:hover {
+    color: var(--font-pry);
+    background-color: var(--hover-card);
+    border-color: var(--font-pry);
+    transition: 0.2s;
 }
 
 #btn-add-new-user {
@@ -197,7 +250,8 @@ td {
     border: 1px solid transparent;
 }
 
-#btn-close-modal-form:hover {
+#btn-close-modal-form:hover,
+.more-actions-button:hover {
     color: var(--font-pry);
     border: 1px solid var(--separator);
     background-color: var(--hover-card);
