@@ -63,6 +63,6 @@ class LoginController extends Controller
         /* gera um novo token @csrf*/
         $request->session()->regenerateToken();
 
-        return redirect()->route("home.index");
+        return redirect()->route("login.index");
     }
 }

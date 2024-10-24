@@ -1,7 +1,7 @@
 @extends('page')
 
 @section('specific-styles')
-    @vite(['resources/css/user/admin/create.css'])
+    @vite(['resources/css/user/admin/create.css', 'resources/css/alert.css'])
     @livewireStyles
 @endsection
 
@@ -9,18 +9,19 @@
     @livewire('user-list') <!-- Inclui o componente Livewire -->
 
     @if ($successOnDelete or $successOnInsert)
-        <div class="alert">
-            <h3>
-                <i class="fa-solid fa-check"></i>
-                Usuário {{ $successOnInsert ? 'Inserido' : 'Deletado' }}!
-            </h3>
-            <div class="timer-line"></div>
-            <p>
-                O {{ $successOnInsert ? 'novo(a)' : '' }} usuário(a) <span
-                    style="font-weight: 600">{{ $newUserName ?? $userNameDeleted }}</span>
-                foi devidamente {{ $successOnInsert ? 'registrado' : 'removido' }}.
-            </p>
-        </div>
+        @php
+            $title = 'Usuário ' . ($successOnInsert ? 'Inserido' : 'Deletado') . '!';
+            $message =
+                'O ' .
+                ($successOnInsert ? 'novo(a) ' : '') .
+                'usuário(a) <span style="font-weight: 600">' .
+                ($newUserName ?? $userNameDeleted) .
+                '</span> foi devidamente ' .
+                ($successOnInsert ? 'registrado' : 'removido') .
+                '.';
+        @endphp
+
+        <x-alert :title="$title" :message="$message"></x-alert>
     @endif
 @endsection
 
@@ -108,7 +109,7 @@
 @endsection
 
 @section('specific-scripts')
-    @vite(['resources/js/user/admin/create.js'])
+    @vite(['resources/js/user/admin/create.js', 'resources/js/alert.js'])
 
     @livewireScripts
 

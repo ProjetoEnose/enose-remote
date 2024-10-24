@@ -1,7 +1,7 @@
 @extends('page')
 
 @section('specific-styles')
-    @vite('resources/css/user/edit.css')
+    @vite(['resources/css/user/edit.css', 'resources/css/alert.css'])
 @endsection
 
 @section('content')
@@ -97,6 +97,11 @@
             </div>
         </div>
     </form>
+
+    @if ($successOnUpdate)
+        <x-alert title="Seu perfil foi atualizado!"
+            message="Agora suas informações pessoais foram devidamente registradas"></x-alert>
+    @endif
 @endsection
 
 @section('modal')
@@ -118,7 +123,7 @@
 @endsection
 
 @section('specific-scripts')
-    @vite(['resources/js/user/edit.js'])
+    @vite(['resources/js/user/edit.js', 'resources/js/alert.js'])
 
     <script>
         /* lógica de ativação do modo de edição em caso de erro */
