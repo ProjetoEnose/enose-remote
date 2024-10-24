@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use DateTime;
 use DateTimeZone;
@@ -52,31 +54,18 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        // Valida os dados antes de continuar
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8',
-            'is_admin' => 'required|in:true,false', // Valida o campo is_admin
-        ], [
-            'name.required' => 'O nome é obrigatório.',
-            'email.required' => 'O e-mail é obrigatório.',
-            'email.email' => 'Forneça um endereço de e-mail válido.',
-            'email.unique' => 'Esse e-mail já está cadastrado.',
-            'password.required' => 'A senha é obrigatória.',
-            'password.min' => 'A senha deve ter no mínimo 8 caracteres.',
-        ]);
+        $validatedData = $request->validated();
 
         // Converte o valor de is_admin para booleano
-        $validatedData['is_admin'] = $request->input('is_admin') === 'true';
+        $validatedData['is_admin'] = $validatedData['is_admin'] === 'true';
 
         User::create($validatedData); // O mutator de 'password' irá hash automaticamente
 
         return redirect()->back()->with([
             'successOnInsert' => true,
-            'newUserName' => $request->only('name')["name"]
+            'newUserName' => $validatedData["name"]
         ]);
     }
 
@@ -104,7 +93,8 @@ class UserController extends Controller
     {
         return view("user.edit", [
             "title" => "Editar Informações do Usuário - $id",
-            'user' => Auth::user()
+            'user' => Auth::user(),
+            'successOnUpdate' => session()->get('successOnUpdate')
         ]);
     }
 
@@ -115,26 +105,18 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
-        //dd($request);
+        $validatedData = $request->validated();
 
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'profileImage' => 'nullable|image|mimes:jpg,png,jpeg,gif|max:2048',
-        ], [
-            'name.required' => 'O nome é obrigatório.',
-            'email.required' => 'O e-mail é obrigatório.',
-            'email.email' => 'Forneça um endereço de e-mail válido.',
-            'profileImage.image' => 'O arquivo deve ser uma imagem.',
-            'profileImage.mimes' => 'A imagem deve ser do tipo: jpg, png, jpeg ou gif.',
-            'profileImage.max' => 'A imagem não deve ter mais de 2048 kilobytes.',
-        ]);
-
+        dump($validatedData);
 
         // Redirecionar ou retornar uma resposta de sucesso
-        return redirect()->back()->with('success', 'Informações atualizadas com sucesso.');
+        return redirect()->back()->with(
+            [
+                'successOnUpdate' => true
+            ]
+        );
     }
 
     /**
