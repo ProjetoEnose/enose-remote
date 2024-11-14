@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('profile_images', function (Blueprint $table) {
-            $table->uuid()->primary();
+            $table->uuid("id")->primary();
             $table->string("path");
             $table->uuid("user_id");
             $table->timestamps();

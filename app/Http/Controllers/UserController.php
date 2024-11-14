@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\ProfileImage;
 use App\Models\User;
 use DateTime;
 use DateTimeZone;
@@ -108,8 +109,17 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, $id)
     {
         $validatedData = $request->validated();
+        $user = User::find($id);
 
-        dump($validatedData);
+        $profileImage = $validatedData['profileImage'];
+
+        $fileName = rand(0, 9999) . "-{$profileImage->getClientOriginalName()}";
+        $path = $profileImage->storeAs('uploads', $fileName);
+
+        ProfileImage::create([
+            'path' => $path,
+            'user_id' => $user->id
+        ]);
 
         // Redirecionar ou retornar uma resposta de sucesso
         return redirect()->back()->with(
