@@ -32,7 +32,6 @@
         // Transformar os dados PHP em arrays JS
         let mq3Percents = @json($mq3Percents);
         let mq5Percents = @json($mq5Percents);
-        let readingInterval = @json($readingInterval);
     </script>
 
     @vite('resources/js/dashboard-chart.js')

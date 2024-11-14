@@ -38,11 +38,7 @@ var options = {
             opacity: 0.5,
         },
     },
-    markers: {
-        size: 1,
-    },
     xaxis: {
-        categories: readingInterval, // Usando o intervalo como rótulos no eixo X
         title: {
             text: "Horários",
             style: {
@@ -55,6 +51,7 @@ var options = {
                 colors: "#ffffff", // Rótulos do eixo X em branco
             },
         },
+        tickPlacement: "between",
     },
     yaxis: {
         title: {
@@ -64,8 +61,6 @@ var options = {
                 color: "#ffffff", // Título do eixo Y em branco
             },
         },
-        min: 0, // Definindo o valor mínimo
-        max: 100, // Definindo o valor máximo
         labels: {
             style: {
                 fontSize: "12px",

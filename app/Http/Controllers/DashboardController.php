@@ -32,9 +32,8 @@ class DashboardController extends Controller
 
         return view("dashboard", [
             "title" => "DASHBOARD",
-            "mq3Percents" => $sensorsReadings->map(fn(Sensor $sensor) => $sensor->percent_mq3),
-            "mq5Percents" => $sensorsReadings->map(fn(Sensor $sensor) => $sensor->percent_mq5),
-            "readingInterval" => $sensorsReadings->map(fn(Sensor $sensor) => $sensor->created_at->format('H:i:s')),
+            "mq3Percents" => $sensorsReadings->map(fn(Sensor $sensor) => ['y' => $sensor->percent_mq3, 'x' => $sensor->created_at->format('H:i:s')]),
+            "mq5Percents" => $sensorsReadings->map(fn(Sensor $sensor) => ['y' => $sensor->percent_mq5, 'x' => $sensor->created_at->format('H:i:s')]),
             "days" => $days,  // Passar os dias para o dropdown
             "selectedDay" => $selectedDay, // Passar o dia selecionado para manter a seleção
         ]);
