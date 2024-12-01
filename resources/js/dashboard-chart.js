@@ -47,11 +47,12 @@ var options = {
         },
         labels: {
             style: {
-                fontSize: "12px",
+                fontSize: "8px",
                 colors: "#ffffff", // Rótulos do eixo X em branco
             },
+            step: 24, // Pula a exibição de labels a cada 4 valores
+            rotate: -90, // Inclinação em graus (negativo inclina para a esquerda)
         },
-        tickPlacement: "between",
     },
     yaxis: {
         title: {

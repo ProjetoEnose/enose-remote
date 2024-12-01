@@ -2,15 +2,17 @@
 
 #chart {
     width: 100%;
+    overflow-x: auto; /* Permite a rolagem horizontal */
+    white-space: nowrap; /* Impede que o conteúdo se quebre em várias linhas */
 }
 
 #filter-form {
     /*     border: 1px solid rebeccapurple;
  */
     display: flex;
-    gap: 5px;
+    gap: 20px;
     font-size: 0.9rem;
-    flex-direction: column;
+    flex-direction: row;
     font-weight: 600;
     position: absolute;
     right: 0;
@@ -31,4 +33,9 @@
 
 #filter-form select:focus {
     border-color: var(--theme);
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
 }
