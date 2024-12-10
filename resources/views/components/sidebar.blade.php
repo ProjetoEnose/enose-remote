@@ -2,15 +2,6 @@
     <i class="fa-solid fa-circle-chevron-left" id="btn-alter-menu"></i>
 
     <nav>
-        <a href="{{ route('home.index') }}">
-            <div class="icon">
-                <i class="fa-solid fa-house"></i>
-            </div>
-            <div class="description">
-                home
-            </div>
-        </a>
-
         <a href="{{ route('dashboard.index') }}">
             <div class="icon">
                 <i class="fa-solid fa-chart-simple"></i>
@@ -36,7 +27,7 @@
             </div>
         </a>
 
-        @if ($isAdmin)
+        @if ($user->isAdmin())
             <a href="{{ route('user.create') }}">
                 <div class="icon">
                     <i class="fa-solid fa-users-gear"></i>

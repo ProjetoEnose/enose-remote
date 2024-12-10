@@ -4,11 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Exceptions\PasswordMismatchException;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use InvalidArgumentException;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -55,10 +58,24 @@ class User extends Authenticatable
     protected $keyType = 'string';
 
     /* conceito de mutator */
-    public function setPasswordAttribute($value)
+    /*     public function setPasswordAttribute($value)
     {
         // Armazena o hash da senha em vez da senha em texto simples
         $this->attributes['password'] = Hash::make($value);
+    }
+ */
+    public static function updatePasswordUser(array $passwords, User $user): bool
+    {
+        // Verifica se a senha atual está correta
+        if (!$passwords['currentPassword'] === $user->password) {
+            throw new PasswordMismatchException();
+        }
+
+        // Atualiza a senha do usuário com o novo hash
+        $user->password = $passwords['newPassword'];
+
+        // Salva as alterações no banco de dados
+        return $user->save();
     }
 
     /**
@@ -69,5 +86,10 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return (bool) $this->is_admin; // Converta para booleano
+    }
+
+    public function profileImage()
+    {
+        return $this->hasOne(ProfileImage::class);
     }
 }

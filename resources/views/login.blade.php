@@ -64,7 +64,7 @@
             </div>
         </div>
         <div class="footer-log-in-form">
-            <button type="submit">Log in</button>
+            <button type="submit">Entrar</button>
         </div>
     </form>
 

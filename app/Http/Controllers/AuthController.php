@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\PasswordMismatchException;
+use App\Http\Requests\UpdateAuthRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -60,7 +63,11 @@ class AuthController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('auth.edit', [
+            'title' => 'Alterar senha',
+            'user' => User::find($id),
+            'passwordUpdated' => session()->get('passwordUpdated')
+        ]);
     }
 
     /**
@@ -70,9 +77,23 @@ class AuthController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateAuthRequest $request, $id)
     {
-        //
+        $passwords = $request->validated();
+        $sessionData = ['passwordUpdated' => false];
+
+        try {
+            $sessionData['passwordUpdated'] = User::updatePasswordUser(
+                passwords: $passwords,
+                user: User::findOrFail($id)
+            );
+            return redirect()->back()->with($sessionData);
+        } catch (PasswordMismatchException $e) {
+            $sessionData['error'] = 'A senha atual fornecida não é válida.';
+            return redirect()->back()->with($sessionData);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with($sessionData);
+        }
     }
 
     /**

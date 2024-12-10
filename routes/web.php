@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('dashboard.index');
 });
 
 /* definição das rotas de exibição, confirmação de login e logout */
@@ -34,9 +34,10 @@ Route::middleware("guest")->group(function () {
 });
 
 Route::middleware("auth")->group(function () {
-    Route::get("/home", [HomeController::class, "index"])->name("home.index");
-
     Route::get("/auth/email", [AuthController::class, "index"])->name("auth.index");
+
+    Route::get('/password/update/{user}', [AuthController::class, 'edit'])->name('auth.password.update');
+    Route::put('/password/update/confirm/{user}', [AuthController::class, 'update'])->name('auth.password.update.confirm');
 
     Route::get("/sensors", [SensorsController::class, "index"])->name("sensors.index");
 

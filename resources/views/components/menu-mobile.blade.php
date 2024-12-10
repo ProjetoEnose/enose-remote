@@ -1,20 +1,9 @@
 <div class="menu-mobile">
-    <div class="services-contain-mobile">
-        <div class="notification">
-            <a href="">
-                <i class="fa-solid fa-bell"></i>
-                notificações
-            </a>
-        </div>
-        <div class="about">
-            <a href="">
-                <i class="fa-solid fa-circle-info"></i>
-                sobre
-            </a>
-        </div>
-    </div>
     <nav>
-        <a href="">
+        <a class="user" href="{{ route('user.show', ['user' => $user->id]) }}">
+            <img src="{{ asset($pathToProfileImage) }}" alt="user" width="500">
+        </a>
+        <a href="{{ route('dashboard.index') }}">
             <div class="icon">
                 <i class="fa-solid fa-chart-simple"></i>
             </div>
@@ -38,5 +27,25 @@
                 temperatura
             </div>
         </a>
+        @if ($user->isAdmin())
+            <a href="{{ route('user.create') }}">
+                <div class="icon">
+                    <i class="fa-solid fa-users-gear"></i>
+                </div>
+                <div class="description">
+                    gerir usuários
+                </div>
+            </a>
+        @endif
+
+        <a href="{{ route('logout') }}">
+            <div class="icon">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </div>
+            <div class="description">
+                sair
+            </div>
+        </a>
+
     </nav>
 </div>

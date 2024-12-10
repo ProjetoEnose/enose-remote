@@ -40,17 +40,17 @@
 </head>
 
 @php
-    /* recuperando informações de usuário armazenadas em sessão, que serão utilizadas nas views */
-    $userName = session('userName');
-    $pathToProfileImage = session('pathToProfileImage');
-    $isAdmin = session('isAdmin');
-    $userID = Auth::id();
+    // Recupera o usuário autenticado com o relacionamento carregado
+    $user = Auth::user()->load('profileImage');
+
+    // Define o caminho da imagem de perfil
+    $pathToProfileImage = $user->profileImage->path ?? sprintf('/images/avatars/%s.png', strtoupper($user->name[0]));
 @endphp
 
 <body>
     @include('components.header')
 
-    @include('components.menu-mobile')
+    @include('components.menu-mobile', ['pathToProfileImage' => $pathToProfileImage])
 
     <div class="contain">
         @include('components.sidebar')

@@ -153,7 +153,7 @@ td:nth-child(5) {
 
 .form-add-new-user {
     position: relative;
-    width: 35% !important;
+    width: 35%;
     gap: 30px;
 }
 
@@ -387,4 +387,15 @@ td:nth-child(5) {
     border-radius: 5px;
     cursor: pointer;
     transition: 0.3s;
+}
+
+@media screen and (max-width: 886px) {
+    .users-list-contain {
+        width: 1200px;
+        margin-left: 850px;
+    }
+
+    .form-add-new-user {
+        width: 90%;
+    }
 }

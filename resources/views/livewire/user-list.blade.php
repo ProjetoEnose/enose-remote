@@ -13,7 +13,7 @@
                 <th>E-mail</th>
                 <th>Entrou</th>
                 <th>É um administrador</th>
-                <th>Gerenciar</th>
+                <th>Excluir</th>
             </tr>
         </thead>
         <tbody>
@@ -33,7 +33,7 @@
                     </td>
                     <td>
                         <form action="{{ route('user.destroy', ['user' => $user->id]) }}" method="post"
-                        class="form-delete-user">
+                            class="form-delete-user">
                             @csrf
                             @method('DELETE')
                             <button type="submit" id="btn-delete-user">

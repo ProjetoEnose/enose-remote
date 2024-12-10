@@ -3,64 +3,58 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class LoginController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display the login form.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        /* exibe o formulário de login */
         return view("login", [
             "title" => "Fazer Login",
             'showModal' => $request->session()->get('showModal', false),
         ]);
     }
 
+    /**
+     * Authenticate the user.
+     */
     public function auth(Request $request)
     {
-        /* capturando as informações recebidas do formulário */
+        // Validar os campos recebidos
         $credentials = $request->only(["email", "password"]);
 
-        $registrationExists = Auth::attempt($credentials);
+        // Buscar o usuário pelo e-mail
+        $user = User::where('email', $credentials['email'])->first();
 
-        /* conferindo se há algum registro correspondente na base de dados */
-        if ($registrationExists) {
-            /* cria uma nova sessão para o usuário autentiado */
+        // Verificar se o usuário existe e se a senha corresponde
+        if ($user && $user->password === $credentials['password']) {
+            // Autenticar manualmente o usuário
+            Auth::login($user);
+
+            // Regenerar a sessão
             $request->session()->regenerate();
 
-            // Armazena informações do usuário na sessão, se necessário
-            $user = Auth::user();
-
-            $request->session()->put(
-                [
-                    'userName' => $user->name,
-                    'pathToProfileImage' => sprintf("/images/avatars/%s.png", strtoupper($user->name[0])),
-                    'isAdmin' => $user->is_admin,
-                ]
-            );
-
-            /* redireciona para a rota que se estava tentando acessar, caso não haja uma tentativa anterior, assume a rota /home como padrão */
-            return redirect()->intended("home");
+            // Redirecionar para a rota protegida ou padrão
+            return redirect()->intended("dashboard");
         }
 
-        /* em caso de não encontrar nenhum registro, redireciona de volta para a rota de exibição do form */
+        // Senha ou e-mail incorretos
         return redirect()->back()->with("showModal", true);
     }
 
+    /**
+     * Logout the user.
+     */
     public function logout(Request $request)
     {
-        /* remove o usuário da sessão */
         Auth::logout();
-
-        /* invalida a sessão atual, gerando uma nova */
         $request->session()->invalidate();
-        /* gera um novo token @csrf*/
         $request->session()->regenerateToken();
 
         return redirect()->route("login.index");

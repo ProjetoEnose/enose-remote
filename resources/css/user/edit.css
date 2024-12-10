@@ -62,6 +62,7 @@
     height: 40px;
     width: 40px;
     border-radius: 50%;
+    object-fit: cover; /* Ajusta a imagem para preencher o contêiner sem distorcer */
 }
 
 #inputName,
@@ -98,8 +99,7 @@
 }
 
 #inputProfileImage {
-    /*     border: 1px solid red;
- */
+    border: 1px solid red;
     display: none;
 }
 
@@ -112,8 +112,26 @@
     border-radius: 5px;
     background-color: var(--button);
     cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
     /*     border: 1px solid red;
  */
+}
+
+#btn-update-password {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 8px;
+    padding: 10px;
+    width: 180px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    background-color: var(--button);
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--font-pri);
 }
 
 .user-info-card-footer {
@@ -277,15 +295,25 @@
 
 #btn-confirm-edition {
     background-color: var(--button);
+    font-size: max(1vw, 0.8rem);
 }
 
 #btn-cancel-edition {
     background-color: #a62534;
+    font-size: max(1vw, 0.8rem);
 }
 
-.header-modal,
-.body-modal,
-.footer-modal {
-    /*   border: 1px dashed red;
- */
+.card-header h2 {
+    font-size: max(2vw, 1.5rem);
+}
+
+@media screen and (max-width: 886px) {
+    .user-info-card {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .modal {
+        width: 95%;
+    }
 }

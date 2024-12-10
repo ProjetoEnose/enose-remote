@@ -2,8 +2,6 @@
 
 #chart {
     width: 100%;
-    overflow-x: auto; /* Permite a rolagem horizontal */
-    white-space: nowrap; /* Impede que o conteúdo se quebre em várias linhas */
 }
 
 #filter-form {
@@ -38,4 +36,15 @@
 form div {
     display: flex;
     flex-direction: column;
+}
+
+@media screen and (max-width: 886px) {
+    .contain {
+        overflow: auto;
+    }
+
+    .card {
+        width: 1200px;
+        margin-left: 850px;
+    }
 }

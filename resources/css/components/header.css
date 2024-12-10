@@ -2,11 +2,12 @@
 
 header {
     position: relative;
-    height: 10vh !important;
+    height: 12vh;
     width: 100%;
     display: flex;
     align-items: center;
-    padding: 0 10px;
+    justify-content: space-between;
+    padding: 0 20px;
     border-bottom: 0.1px solid var(--font-sec);
 }
 
@@ -33,61 +34,32 @@ header {
     flex: 1;
     font-weight: 600;
     /* Adicionando controle de reticências */
-    white-space: nowrap; /* Impede quebra de linha */
-    overflow: hidden; /* Esconde o conteúdo que ultrapassar a largura */
-    text-overflow: ellipsis; /* Adiciona as reticências quando o texto ultrapassa */
+    overflow: hidden; /* Esconde o texto que ultrapassa o limite */
+    white-space: nowrap; /* Impede que o texto quebre para uma nova linha */
+    text-overflow: ellipsis; /* Adiciona as reticências ao final do texto que não couber */
+    max-width: 100%; /* Ajusta o tamanho máximo (ou defina um valor fixo) */
 }
 
-.services-contain {
-    /*   border: 1px dashed red;
+.user {
+    /*     border: 1px dashed yellow;
  */
-    display: flex;
-    flex: 1;
-    padding: 0 20px;
-    align-items: center;
-    gap: 15px;
-    justify-content: end;
-}
-
-.notification,
-.about {
-    /*   border: 1px dashed yellow;
- */
-    display: flex;
-
-    border-radius: 5px;
-}
-
-.notification a,
-.about a,
-.user a {
-    text-decoration: none;
-    color: var(--font-sec);
     display: flex;
     align-items: center;
     justify-content: center;
-    /*   border: 1px solid red;
- */
 }
 
-.notification a i,
-.about a i {
-    font-size: 1.3rem;
-    background-color: transparent;
-}
-
-.user a img {
-    height: 40px;
-    width: 40px;
+.user img {
+    height: 50px;
+    width: 50px;
     border-radius: 50%;
-    border: 1px solid var(--separator);
+    border: 4px solid transparent;
+    object-fit: cover; /* Ajusta a imagem para preencher o contêiner sem distorcer */
+    transition: 0.2s;
 }
 
-.notification a:hover,
-.about a:hover {
-    text-decoration: underline wavy;
-    text-decoration-color: var(--theme);
-    color: var(--font);
+.user:hover > img {
+    transition: 0.2s;
+    border-color: var(--separator);
 }
 
 @media screen and (max-width: 900px) {
@@ -103,5 +75,29 @@ header {
     .logo-contain {
         padding-left: 0;
         width: 100%;
+    }
+
+    .user {
+        display: none;
+    }
+
+    .user img {
+        height: 80px;
+        width: 80px;
+        border-radius: 50%;
+        border: 4px solid transparent;
+        object-fit: cover; /* Ajusta a imagem para preencher o contêiner sem distorcer */
+        transition: 0.2s;
+    }
+
+    header {
+        justify-content: space-between !important;
+    }
+
+    .logo-contain {
+        width: 80%;
+        justify-content: space-between;
+        /*         border: 1px solid red;
+ */
     }
 }

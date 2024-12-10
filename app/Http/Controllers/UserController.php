@@ -6,10 +6,9 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\ProfileImage;
 use App\Models\User;
-use DateTime;
-use DateTimeZone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -108,25 +107,49 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, $id)
     {
+        // Valida os dados recebidos
         $validatedData = $request->validated();
-        $user = User::find($id);
 
-        $profileImage = $validatedData['profileImage'];
+        // Recupera o usuário pelo ID
+        $user = User::findOrFail($id);
+        $user->update($validatedData);
 
-        $fileName = rand(0, 9999) . "-{$profileImage->getClientOriginalName()}";
-        $path = $profileImage->storeAs('uploads', $fileName);
+        /* Lógica de armazenamento de fotos de usuário */
+        if (isset($validatedData['profileImage'])) {
+            // Gera um nome único para o arquivo e armazena-o
+            $profileImage = $validatedData['profileImage'];
+            $fileName = rand(0, 9999) . "-{$profileImage->getClientOriginalName()}";
+            $path = $profileImage->storeAs('uploads', $fileName);
+            $path = "storage/" . $profileImage->storeAs('public/uploads', $fileName);
 
-        ProfileImage::create([
-            'path' => $path,
-            'user_id' => $user->id
+
+            // Acessa o relacionamento diretamente para obter a imagem associada
+            $existingProfileImage = $user->profileImage;
+
+            if ($existingProfileImage) {
+                // Recupera o caminho do arquivo existente
+                $existingFilePath = $existingProfileImage->path;
+
+                // Exclui o arquivo do servidor, se existir
+                if (Storage::exists($existingFilePath)) {
+                    Storage::delete($existingFilePath);
+                }
+
+                // Atualiza o registro existente com o novo caminho
+                $existingProfileImage->update(['path' => $path]);
+            } else {
+                // Cria um novo registro se não houver uma imagem associada
+                ProfileImage::create([
+                    'path' => $path,
+                    'user_id' => $user->id
+                ]);
+            }
+        }
+
+        // Redireciona ou retorna uma resposta de sucesso
+        return redirect()->back()->with([
+            'successOnUpdate' => true
         ]);
-
-        // Redirecionar ou retornar uma resposta de sucesso
-        return redirect()->back()->with(
-            [
-                'successOnUpdate' => true
-            ]
-        );
     }
 
     /**

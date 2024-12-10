@@ -4,6 +4,10 @@
     @vite(['resources/css/user/edit.css', 'resources/css/alert.css'])
 @endsection
 
+@php
+    $pathToProfileImage = $user->profileImage->path ?? sprintf('/images/avatars/%s.png', strtoupper($user->name[0]));
+@endphp
+
 @section('content')
     {{-- trabalhado na atualização de informações --}}
     <form action="{{ route('user.update', ['user' => $user->id]) }}" method="post" enctype="multipart/form-data"
@@ -21,11 +25,11 @@
                 <span class="name">avatar:</span>
                 <span class="value">
                     <div class="box">
-                        <img src="{{ session('pathToProfileImage') }}" alt="user-image" width="50px" id="profileImage" />
+                        <img src="{{ asset($pathToProfileImage) }}" alt="user-image" width="50px" id="profileImage" />
                         <input type="file" name="profileImage" id="inputProfileImage" readonly accept="image/*"
                             value="{{ old('profileImage') }}" />
                         <label for="inputProfileImage" id="labelProfileImage">
-                            nova foto
+                            Nova foto
                             <i class="fa-solid fa-file-arrow-up"></i>
                         </label>
 
@@ -85,7 +89,10 @@
             <div class="line">
                 <span class="name">senha:</span>
                 <div class="value">
-                    <a href="">Alterar senha</a>
+                    <a id="btn-update-password" href="{{ route('auth.password.update', ['user' => $user->id]) }}">Alterar
+                        senha
+                        <i class="fa-solid fa-key"></i>
+                    </a>
                 </div>
             </div>
         </div>

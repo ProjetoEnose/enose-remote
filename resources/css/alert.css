@@ -72,3 +72,14 @@
     border-radius: 50%;
     background-color: #014727;
 }
+
+@media screen and (max-width: 886px) {
+    .alert {
+        width: 85% !important;
+        bottom: 20px;
+        left: 50%; /* Move o ponto de referência para o meio */
+        transform: translateX(
+            -50%
+        ); /* Ajusta o elemento para ficar centralizado */
+    }
+}

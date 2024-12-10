@@ -5,9 +5,13 @@
 @endsection
 
 @section('content')
-    <div class="user-card card">
+    @php
+        $pathToProfileImage =
+            $user->profileImage->path ?? sprintf('/images/avatars/%s.png', strtoupper($user->name[0]));
+    @endphp
+    <div class="user-card card" id="about-user">
         <div class="about">
-            <span id="name">{{ $user->name }}</span>
+            <h1 id="name">{{ $user->name }}</h1>
             <span>{{ $user->email }}</span>
             <span>
                 @php
@@ -16,7 +20,7 @@
                     $enteredDiffForHumans = $cbCreatedAt->diffForHumans();
                 @endphp
 
-                Juntou-se a equipe Enose Remote:
+                Juntou-se a equipe E-nose Remoto:
                 <span style="background: var(--separator); padding: 4px; border-radius: 5px;">
                     {{ $entered }}
                     ({{ $enteredDiffForHumans }})
@@ -24,7 +28,7 @@
             </span>
         </div>
         <div class="profile-image">
-            <img src="{{ asset(session('pathToProfileImage')) }}" alt="user" />
+            <img src="{{ asset($pathToProfileImage) }}" alt="user" />
         </div>
     </div>
 
@@ -42,12 +46,6 @@
                 <span class="value">{{ $user->email }}</span>
             </div>
             <div class="line">
-                <span class="name">senha:</span>
-                <span class="value">
-                    <input type="password" value="{{ $user->password }}" readonly />
-                </span>
-            </div>
-            <div class="line-blur">
                 <span class="name">status do e-mail:</span>
                 <span class="value">{{ $user->email_verified_at ? 'validado' : 'não validado' }}</span>
             </div>
