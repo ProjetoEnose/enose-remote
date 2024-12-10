@@ -119,9 +119,9 @@ class UserController extends Controller
             // Gera um nome único para o arquivo e armazena-o
             $profileImage = $validatedData['profileImage'];
             $fileName = rand(0, 9999) . "-{$profileImage->getClientOriginalName()}";
-            $path = $profileImage->storeAs('uploads', $fileName);
-            $path = "storage/" . $profileImage->storeAs('public/uploads', $fileName);
 
+            // Salva a imagem na pasta uploads dentro de storage/app/public
+            $path = $profileImage->storeAs('uploads', $fileName);  // O caminho correto com o link simbólico
 
             // Acessa o relacionamento diretamente para obter a imagem associada
             $existingProfileImage = $user->profileImage;

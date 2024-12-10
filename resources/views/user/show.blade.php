@@ -28,7 +28,7 @@
             </span>
         </div>
         <div class="profile-image">
-            <img src="{{ asset($pathToProfileImage) }}" alt="user" />
+            <img src="{{ asset('storage/' . $pathToProfileImage) }}" alt="user" />
         </div>
     </div>
 
