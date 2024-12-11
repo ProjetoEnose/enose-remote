@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 class UserController extends Controller
 {
@@ -116,32 +117,21 @@ class UserController extends Controller
 
         /* Lógica de armazenamento de fotos de usuário */
         if (isset($validatedData['profileImage'])) {
-            // Gera um nome único para o arquivo e armazena-o
-            $profileImage = $validatedData['profileImage'];
-            $fileName = rand(0, 9999) . "-{$profileImage->getClientOriginalName()}";
+            $pathNewImage = ProfileImage::saveImage($validatedData['profileImage']);
 
-            // Salva a imagem na pasta uploads dentro de storage/app/public
-            $path = $profileImage->storeAs('uploads', $fileName);  // O caminho correto com o link simbólico
-
-            // Acessa o relacionamento diretamente para obter a imagem associada
-            $existingProfileImage = $user->profileImage;
-
-            if ($existingProfileImage) {
-                // Recupera o caminho do arquivo existente
-                $existingFilePath = $existingProfileImage->path;
-
-                // Exclui o arquivo do servidor, se existir
-                if (Storage::exists($existingFilePath)) {
-                    Storage::delete($existingFilePath);
+            try {
+                if ($user->profileImage) {
+                    ProfileImage::deleteFileImageOnDeleteRegister($user->profileImage->path);
+                    $user->profileImage->path = $pathNewImage;
+                } else {
+                    ProfileImage::create([
+                        'path' => $pathNewImage,
+                        'user_id' => $user->id
+                    ]);
                 }
-
-                // Atualiza o registro existente com o novo caminho
-                $existingProfileImage->update(['path' => $path]);
-            } else {
-                // Cria um novo registro se não houver uma imagem associada
-                ProfileImage::create([
-                    'path' => $path,
-                    'user_id' => $user->id
+            } catch (\Throwable $th) {
+                return redirect()->back()->with([
+                    'errorOnUpdate' => true
                 ]);
             }
         }
@@ -161,7 +151,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-
+        if ($user->profileImage) ProfileImage::deleteFileImageOnDeleteRegister($user->profileImage->path);
         $deleted = $user->delete();
 
         return redirect()->back()->with(

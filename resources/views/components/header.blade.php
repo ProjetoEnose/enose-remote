@@ -9,7 +9,7 @@
         </span>
     </div>
     <a class="user" href="{{ route('user.show', ['user' => $user->id]) }}">
-        <img src="{{ asset('storage/' . $pathToProfileImage) }}" alt="user">
+        <img src="{{ asset($pathToProfileImage) }}" alt="user">
     </a>
 
     <i class="fa-solid fa-bars" id="btn-menu-mobile"></i>

@@ -36,19 +36,19 @@
     <link rel="shortcut icon" href="{{ asset('favicon_package/favicon.ico') }}">
 
     <script rel="preconnect" src="https://kit.fontawesome.com/638bd1bffb.js" crossorigin="anonymous"></script>
-    <title>Enose Remote | {{ $title }}</title>
+    <title>{{ config('app.name') }} | {{ $title }}</title>
 </head>
 
 @php
     // Recupera o usuário autenticado com o relacionamento carregado
-    $user = Auth::user()->load('profileImage');
-
-    // Define o caminho da imagem de perfil
-    $pathToProfileImage = $user->profileImage->path ?? sprintf('/images/avatars/%s.png', strtoupper($user->name[0]));
+    $user = Auth::user();
+    $pathToProfileImage = $user->profileImage
+        ? "storage/{$user->profileImage->path}"
+        : sprintf('/images/avatars/%s.png', strtoupper($user->name[0]));
 @endphp
 
 <body>
-    @include('components.header')
+    @include('components.header', ['pathToProfileImage' => $pathToProfileImage])
 
     @include('components.menu-mobile', ['pathToProfileImage' => $pathToProfileImage])
 

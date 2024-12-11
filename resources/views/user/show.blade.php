@@ -6,8 +6,9 @@
 
 @section('content')
     @php
-        $pathToProfileImage =
-            $user->profileImage->path ?? sprintf('/images/avatars/%s.png', strtoupper($user->name[0]));
+        $pathToProfileImage = $user->profileImage
+            ? "storage/{$user->profileImage->path}"
+            : sprintf('/images/avatars/%s.png', strtoupper($user->name[0]));
     @endphp
     <div class="user-card card" id="about-user">
         <div class="about">
@@ -28,7 +29,7 @@
             </span>
         </div>
         <div class="profile-image">
-            <img src="{{ asset('storage/' . $pathToProfileImage) }}" alt="user" />
+            <img src="{{ asset($pathToProfileImage) }}" alt="user" />
         </div>
     </div>
 

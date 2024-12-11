@@ -5,7 +5,9 @@
 @endsection
 
 @php
-    $pathToProfileImage = $user->profileImage->path ?? sprintf('/images/avatars/%s.png', strtoupper($user->name[0]));
+    $pathToProfileImage = $user->profileImage
+        ? "storage/{$user->profileImage->path}"
+        : sprintf('/images/avatars/%s.png', strtoupper($user->name[0]));
 @endphp
 
 @section('content')
@@ -25,8 +27,7 @@
                 <span class="name">avatar:</span>
                 <span class="value">
                     <div class="box">
-                        <img src="{{ asset('storage/' . $pathToProfileImage) }}" alt="user-image" width="50px"
-                            id="profileImage" />
+                        <img src="{{ asset($pathToProfileImage) }}" alt="user-image" width="50px" id="profileImage" />
                         <input type="file" name="profileImage" id="inputProfileImage" readonly accept="image/*"
                             value="{{ old('profileImage') }}" />
                         <label for="inputProfileImage" id="labelProfileImage">
