@@ -123,6 +123,7 @@ class UserController extends Controller
                 if ($user->profileImage) {
                     ProfileImage::deleteFileImageOnDeleteRegister($user->profileImage->path);
                     $user->profileImage->path = $pathNewImage;
+                    $user->profileImage->save();
                 } else {
                     ProfileImage::create([
                         'path' => $pathNewImage,
